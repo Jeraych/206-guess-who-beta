@@ -1,11 +1,6 @@
 package nz.ac.auckland.se206;
 
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.StandardOpenOption;
-
 import javafx.animation.FadeTransition;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -66,43 +61,7 @@ public class App extends Application {
    * @param args the command line arguments
    */
   public static void main(final String[] args) {
-    replaceFileContent(
-        "src/main/resources/prompts/emptyfile.txt",
-        "src/main/resources/prompts/lab_technician_2.txt");
-    replaceFileContent(
-        "src/main/resources/prompts/emptyfile.txt",
-        "src/main/resources/prompts/lead_scientist_2.txt");
-    replaceFileContent(
-        "src/main/resources/prompts/emptyfile.txt", "src/main/resources/prompts/scholar_2.txt");
     launch();
-  }
-
-  public static void replaceFileContent(String sourceFilePath, String destinationFilePath) {
-    Path sourcePath = Paths.get(sourceFilePath);
-    Path destinationPath = Paths.get(destinationFilePath);
-
-    try {
-      // Read content from the source file
-      byte[] content = Files.readAllBytes(sourcePath);
-
-      // Write content to the destination file, overwriting it
-      Files.write(destinationPath, content);
-    } catch (IOException e) {
-      System.err.println("An error occurred while replacing file content: " + e.getMessage());
-    }
-  }
-
-  public static void appendToFile(String content, String filePath) {
-    Path path = Paths.get(filePath);
-
-    try {
-      // Append content to the file
-      Files.write(path, content.getBytes(), StandardOpenOption.APPEND, StandardOpenOption.CREATE);
-
-    } catch (IOException e) {
-      System.err.println("An error occurred while appending to the file: " + e.getMessage());
-      e.printStackTrace();
-    }
   }
 
   public static Timer getTimer() {
