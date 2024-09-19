@@ -22,6 +22,7 @@ import nz.ac.auckland.apiproxy.exceptions.ApiProxyException;
 import nz.ac.auckland.se206.App;
 import nz.ac.auckland.se206.prompts.PromptEngineering;
 import nz.ac.auckland.se206.speech.FreeTextToSpeech;
+import nz.ac.auckland.se206.speech.TextToSpeech;
 
 /**
  * Controller class for the chat view. Handles user interactions and communication with the GPT
@@ -56,6 +57,9 @@ public class ChatController {
 
   private Boolean first;
   private MediaPlayer mediaPlayerChat;
+  private ChatMessage initialStartup;
+  private Media greetingSound;
+  private MediaPlayer greetingPlayer;
 
   /**
    * Initializes the chat view.
@@ -105,6 +109,21 @@ public class ChatController {
   public void playHmm() {
     Media hmmSound = new Media(App.class.getResource("/sounds/hmmm.mp3").toExternalForm());
     mediaPlayerChat = new MediaPlayer(hmmSound);
+    switch (profession) {
+      case "Lab Technician":
+        hmmSound = new Media(App.class.getResource("/sounds/labtechnician hmm.mp3").toExternalForm());
+        mediaPlayerChat = new MediaPlayer(hmmSound);
+        break;
+      case "Lead Scientist":
+        hmmSound = new Media(App.class.getResource("/sounds/leadscientist hmm.mp3").toExternalForm());
+        mediaPlayerChat = new MediaPlayer(hmmSound);
+        break;
+      case "Scholar":
+        hmmSound = new Media(App.class.getResource("/sounds/scholar hmm.mp3").toExternalForm());
+        mediaPlayerChat = new MediaPlayer(hmmSound);
+        break;
+    }
+    
     // set volume
     mediaPlayerChat.setVolume(0.8);
 
@@ -125,10 +144,30 @@ public class ChatController {
     System.out.println("Setting profession");
     updateChatTexts();
     this.profession = profession;
-    ChatMessage initialStartup = new ChatMessage("assistant", "...");
+    
+    switch (profession) {
+      case "Lab Technician":
+        initialStartup = new ChatMessage("assistant", "Hey! Welcome to the lab. I’m the lab tech here, working with the lead scientist. If you need anything or have any questions, just let me know!");
+        greetingSound = new Media(App.class.getResource("/sounds/labtechnician greeting.mp3").toExternalForm());
+        greetingPlayer = new MediaPlayer(greetingSound);
+        break;
+      case "Lead Scientist":
+        initialStartup = new ChatMessage("assistant", "Greetings! It's a pleasure to meet you. As the lead scientist here, I'm excited to collaborate and explore new discoveries together.");
+        greetingSound = new Media(App.class.getResource("/sounds/leadscientist greeting.mp3").toExternalForm());
+        greetingPlayer = new MediaPlayer(greetingSound);
+        break;
+      case "Scholar":
+        initialStartup = new ChatMessage("assistant", "Good evening, it is a pleasure to make your acquantaince");
+        greetingSound = new Media(App.class.getResource("/sounds/scholar greeting.mp3").toExternalForm());
+        greetingPlayer = new MediaPlayer(greetingSound);
+        break;
+    }
     appendChatMessage(initialStartup);
-    // begin new task to retrieve generated text via api
-    fetchChatTask =
+    greetingPlayer.play();
+    greetingPlayer.setOnEndOfMedia(() -> {
+      
+        // begin new task to retrieve generated text via api
+        fetchChatTask =
         new Task<Void>() {
           @Override
           protected Void call() throws Exception {
@@ -149,9 +188,11 @@ public class ChatController {
           }
         };
 
-    Thread backgroundChatThread = new Thread(fetchChatTask);
-    backgroundChatThread.setDaemon(true);
-    backgroundChatThread.start();
+        Thread backgroundChatThread = new Thread(fetchChatTask);
+        backgroundChatThread.setDaemon(true);
+        backgroundChatThread.start();
+      
+    });
   }
 
   /**
