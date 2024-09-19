@@ -51,6 +51,8 @@ public class ChatController {
   private ChatCompletionRequest chatCompletionRequest;
   private Task<Void> fetchChatTask;
   private Task<Void> runGptTask;
+  private Media greeting;
+  private MediaPlayer greetingPlayer;
 
   // Static Methods
   public static boolean hasTalked() {
@@ -82,6 +84,23 @@ public class ChatController {
     System.out.println("Setting profession");
     updateChatTexts();
     this.profession = profession;
+    
+    switch (profession) {
+      case "Lab Technician":
+        greeting = new Media(App.class.getResource("/sounds/labtechnician greeting.mp3").toExternalForm());
+        greetingPlayer = new MediaPlayer(greeting);
+        break;
+      case "Lead Scientist":
+        greeting = new Media(App.class.getResource("/sounds/leadscientist greeting.mp3").toExternalForm());
+        greetingPlayer = new MediaPlayer(greeting);
+        break;
+      case "Scholar":
+        greeting = new Media(App.class.getResource("/sounds/scholar greeting.mp3").toExternalForm());
+        greetingPlayer = new MediaPlayer(greeting);
+        break;
+    }
+    
+    greetingPlayer.play();
     initializeFilePath();
     fetchChatTask =
         new Task<Void>() {
