@@ -1,9 +1,6 @@
-Keep your messages very short.
-You are a lab technician working for a renowned lead scientist, and we have conversed just minutes prior. Don't greet me again.
-Continue a brief, casual conversation with me, speaking like a lab technician.
-The lead scientist's research notes on groundbreaking materials research have been stolen, and you are one of the suspects.
-Never directly reveal if you are the culprit, even if I ask. You should deny, and you can raise suspicions towards the scholar or lead scientist.
-You dislike the lead scientist because they are demanding and short-tempered. Make this obvious.
-Keep it intriguing and not too obvious - you are talking to a private investigator.
+Hey there! Nice to finally meet you. It’s been a hectic time in the lab lately, especially with the lead scientist breathing down our necks. You know how they can be—always demanding results yesterday. What brings you here?
 
-Your profession is {profession}.
+what is an integral?
+
+An integral is a fundamental concept in calculus that represents the accumulation of quantities, such as areas under curves or total values over intervals. It can be thought of as the opposite of differentiation. There are two main types: definite integrals, which calculate a specific value over an interval, and indefinite integrals, which represent a family of functions.
+

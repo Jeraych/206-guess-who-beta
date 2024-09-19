@@ -8,7 +8,7 @@ public abstract class ClueController {
 
   @FXML private Label timerLabel;
 
-  @FXMl
+  @FXML
   void initialize() {
     App.getTimer().setLabel(timerLabel);
   }

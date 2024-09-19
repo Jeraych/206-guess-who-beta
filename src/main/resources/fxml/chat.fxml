@@ -6,14 +6,16 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="198.0" prefWidth="780.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nz.ac.auckland.se206.controllers.ChatController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="171.0" prefWidth="785.0" style="-fx-background-color: #f5eeff;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nz.ac.auckland.se206.controllers.ChatController">
   <children>
-    <TextArea fx:id="txtaChat" editable="false" layoutX="-2.0" layoutY="34.0" prefHeight="130.0" prefWidth="786.0" style="-fx-control-inner-background: #f5eeff;" wrapText="true">
+    <TextArea fx:id="txtaChat" editable="false" layoutX="48.0" layoutY="31.0" opacity="0.74" prefHeight="124.0" prefWidth="682.0" style="-fx-control-inner-background: #f5eeff;" wrapText="true">
          <font>
-            <Font size="15.0" />
+            <Font name="Constantia" size="10.0" />
          </font></TextArea>
-    <TextField fx:id="txtInput" layoutX="101.0" layoutY="131.0" prefHeight="26.0" prefWidth="487.0" style="-fx-background-color: #FFFFFF;" />
-    <Button fx:id="btnSend" layoutX="597.0" layoutY="131.0" mnemonicParsing="false" onAction="#onSendMessage" text="Send" />
-    <Button fx:id="btnBack" layoutX="653.0" layoutY="131.0" mnemonicParsing="false" onAction="#onGoBack" text="Go Back" />
+    <TextField fx:id="txtInput" layoutX="119.0" layoutY="130.0" prefHeight="26.0" prefWidth="487.0" style="-fx-background-color: #FFFFFF;" />
+    <Button fx:id="btnSend" layoutX="620.0" layoutY="130.0" mnemonicParsing="false" onAction="#onSendMessage" text="Send" />
+    <Button layoutX="7.0" layoutY="2.0" mnemonicParsing="false" onAction="#onGoBack" text="Go Back" />
+      <Button fx:id="btnLast" layoutX="7.0" layoutY="76.0" mnemonicParsing="false" onAction="#onLastClicked" text="Last" />
+      <Button fx:id="btnNext" layoutX="736.0" layoutY="76.0" mnemonicParsing="false" onAction="#onNextClicked" text="Next" />
   </children>
 </AnchorPane>

@@ -8,3 +8,5 @@ Never directly reveal if you are the culprit, even if I ask. NEVER. You should d
 Keep it intriguing and not too obvious - you are talking to a private investigator.
 
 Your profession is {profession}.
+Only respond with one message and ** DO NOT SAY {profession}: **
+The previous messages in this conversation are:

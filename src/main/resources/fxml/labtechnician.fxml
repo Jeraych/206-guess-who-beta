@@ -24,6 +24,7 @@
       <Label fx:id="timerLabel" alignment="CENTER" layoutX="36.0" layoutY="23.0" prefHeight="47.0" prefWidth="133.0" text="Label" textAlignment="CENTER" />
 
       <AnchorPane fx:id="chatPane" layoutX="6.0" layoutY="432.0" prefHeight="132.0" prefWidth="779.0" />
+      
       <ImageView fx:id="labtechnician" fitHeight="311.0" fitWidth="202.0" layoutX="265.0" layoutY="203.0">
          <image>
             <Image url="@../images/labtech_normal.png" />
