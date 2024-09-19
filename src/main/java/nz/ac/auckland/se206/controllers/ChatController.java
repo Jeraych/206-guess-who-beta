@@ -144,7 +144,39 @@ public class ChatController {
     System.out.println("Setting profession");
     updateChatTexts();
     this.profession = profession;
+    first = firstInteraction.get(profession);
+    initialStartup = new ChatMessage("assistant", "...");
+    // begin new task to retrieve generated text via api
+    fetchChatTask =
+    new Task<Void>() {
+      @Override
+      protected Void call() throws Exception {
+        try {
+          first = firstInteraction.get(profession);
+          ApiProxyConfig config = ApiProxyConfig.readConfig();
+          chatCompletionRequest =
+              new ChatCompletionRequest(config)
+                  .setN(1)
+                  .setTemperature(0.2)
+                  .setTopP(0.5)
+                  .setMaxTokens(100);
+          runGpt(new ChatMessage("system", getSystemPrompt()), first);
+        } catch (ApiProxyException e) {
+          e.printStackTrace();
+        }
+        return null;
+      }
+    };
+
+    Thread backgroundChatThread = new Thread(fetchChatTask);
+    backgroundChatThread.setDaemon(true);
     
+    if (!first) {
+      appendChatMessage(initialStartup);
+      backgroundChatThread.start();
+      return;
+    }
+
     switch (profession) {
       case "Lab Technician":
         initialStartup = new ChatMessage("assistant", "Hey! Welcome to the lab. I’m the lab tech here, working with the lead scientist. If you need anything or have any questions, just let me know!");
@@ -165,33 +197,7 @@ public class ChatController {
     appendChatMessage(initialStartup);
     greetingPlayer.play();
     greetingPlayer.setOnEndOfMedia(() -> {
-      
-        // begin new task to retrieve generated text via api
-        fetchChatTask =
-        new Task<Void>() {
-          @Override
-          protected Void call() throws Exception {
-            try {
-              first = firstInteraction.get(profession);
-              ApiProxyConfig config = ApiProxyConfig.readConfig();
-              chatCompletionRequest =
-                  new ChatCompletionRequest(config)
-                      .setN(1)
-                      .setTemperature(0.2)
-                      .setTopP(0.5)
-                      .setMaxTokens(100);
-              runGpt(new ChatMessage("system", getSystemPrompt()), first);
-            } catch (ApiProxyException e) {
-              e.printStackTrace();
-            }
-            return null;
-          }
-        };
-
-        Thread backgroundChatThread = new Thread(fetchChatTask);
-        backgroundChatThread.setDaemon(true);
-        backgroundChatThread.start();
-      
+      backgroundChatThread.start();
     });
   }
 
