@@ -82,6 +82,7 @@ public class ChatController {
   private ChatMessage initialStartup;
   private Media greetingSound;
   private MediaPlayer greetingPlayer;
+  private ChatMessage gptMessage;
 
   /**
    * Initializes the chat view.
@@ -165,10 +166,10 @@ public class ChatController {
 
     Thread backgroundChatThread = new Thread(fetchChatTask);
     backgroundChatThread.setDaemon(true);
+    backgroundChatThread.start();
     
     if (!first) {
       appendChatMessage(initialStartup);
-      backgroundChatThread.start();
       return;
     }
 
@@ -190,10 +191,9 @@ public class ChatController {
         break;
     }
     appendChatMessage(initialStartup);
+    disbaleChatButton();
+    disableInteraction();
     greetingPlayer.play();
-    greetingPlayer.setOnEndOfMedia(() -> {
-      backgroundChatThread.start();
-    });
   }
 
   private void initializeFilePath() {
@@ -315,9 +315,6 @@ public class ChatController {
       Choice result = chatCompletionResult.getChoices().iterator().next();
       chatCompletionRequest.addMessage(result.getChatMessage());
       appendChatMessage(result.getChatMessage());
-      if (first) {
-        FreeTextToSpeech.speak(result.getChatMessage().getContent());
-      }
       enableInteraction();
       // Platform.runLater(() -> roomController.hideHmm(profession)); // SOUNDFX LATER
       chatTexts.add(profession + ": " + result.getChatMessage().getContent());
@@ -418,6 +415,7 @@ public class ChatController {
   private void onGoBack(ActionEvent event) throws ApiProxyException, IOException {
     App.hideChat();
     enableInteraction();
+    greetingPlayer.stop();
   }
 
   private void disbaleChatButton() {
