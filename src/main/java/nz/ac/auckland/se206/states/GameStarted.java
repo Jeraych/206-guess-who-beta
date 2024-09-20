@@ -83,7 +83,6 @@ public class GameStarted implements GameState {
 
     App.setRoot("guessing");
 
-    context.setState(context.getGuessingState());
   }
 
   public boolean handleGuess(Button button) {

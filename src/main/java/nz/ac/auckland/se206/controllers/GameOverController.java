@@ -18,6 +18,7 @@ import nz.ac.auckland.apiproxy.chat.openai.Choice;
 import nz.ac.auckland.apiproxy.config.ApiProxyConfig;
 import nz.ac.auckland.apiproxy.exceptions.ApiProxyException;
 import nz.ac.auckland.se206.App;
+import nz.ac.auckland.se206.GameStateContext;
 import nz.ac.auckland.se206.prompts.PromptEngineering;
 
 public class GameOverController {
@@ -40,6 +41,7 @@ public class GameOverController {
   private ChatCompletionRequest chatCompletionRequest;
   private String profession;
   private String feedback;
+  private static GameStateContext context = App.getContext();
 
   @FXML
   public void initialize() throws ApiProxyException {
@@ -83,7 +85,7 @@ public class GameOverController {
 
   @FXML
   private void playAgain(ActionEvent event) throws IOException {
-    App.setRoot("home");
+    App.setRoot("home"); 
   }
 
   @FXML
