@@ -1,5 +1,6 @@
 # Sample JavaFX application using Proxy API
 # SOFTENG206 Guess Who Beta
+### This is the mirror of another repo and does not keep pull requests and other histories done on GitHub
 # This is the era of AI
 The clients are encouraging you to “push the limits”, and thinking of concepts and interactions not typical of traditional software applications. This is the era of AI, and they want their product to be at the forefront. Creativity and thinking outside the box is encouraged. Brainstorming collaboratively with your teammates will be valuable. How can you revolutionise “typical” concepts/aspects found in traditional software applications or games?
 
